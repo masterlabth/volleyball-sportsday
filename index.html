@@ -898,6 +898,152 @@ break;
 
 }
 
+case "match1":
+
+await updateDoc(
+doc(db,"matches","match9"),
+{
+teamA: loser
+}
+);
+
+await updateDoc(
+doc(db,"matches","match13"),
+{
+teamA: winner
+}
+);
+
+break;
+
+case "match2":
+
+await updateDoc(
+doc(db,"matches","match9"),
+{
+teamB: loser
+}
+);
+
+await updateDoc(
+doc(db,"matches","match13"),
+{
+teamB: winner
+}
+);
+
+break;
+
+case "match3":
+
+await updateDoc(
+doc(db,"matches","match10"),
+{
+teamA: loser
+}
+);
+
+await updateDoc(
+doc(db,"matches","match14"),
+{
+teamA: winner
+}
+);
+
+break;
+
+case "match4":
+
+await updateDoc(
+doc(db,"matches","match10"),
+{
+teamB: loser
+}
+);
+
+await updateDoc(
+doc(db,"matches","match14"),
+{
+teamB: winner
+}
+);
+
+break;
+
+case "match5":
+
+await updateDoc(
+doc(db,"matches","match11"),
+{
+teamA: loser
+}
+);
+
+await updateDoc(
+doc(db,"matches","match15"),
+{
+teamA: winner
+}
+);
+
+break;
+
+case "match6":
+
+await updateDoc(
+doc(db,"matches","match11"),
+{
+teamB: loser
+}
+);
+
+await updateDoc(
+doc(db,"matches","match15"),
+{
+teamB: winner
+}
+);
+
+break;
+
+case "match7":
+
+await updateDoc(
+doc(db,"matches","match12"),
+{
+teamA: loser
+}
+);
+
+await updateDoc(
+doc(db,"matches","match16"),
+{
+teamA: winner
+}
+);
+
+break;
+
+case "match8":
+
+await updateDoc(
+doc(db,"matches","match12"),
+{
+teamB: loser
+}
+);
+
+await updateDoc(
+doc(db,"matches","match16"),
+{
+teamB: winner
+}
+);
+
+break;
+
+}
+
 }
 
 alert("บันทึกคะแนนเรียบร้อย");
