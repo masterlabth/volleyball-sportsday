@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<title>สร้าง Match อัตโนมัติ</title>
+</head>
+<body>
+
+<h2>สร้าง Match 1-16</h2>
+<button onclick="createMatches()">สร้างข้อมูล</button>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import {
+  getFirestore,
+  doc,
+  setDoc
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAvnmm8_BgU0tsua-D85GrISvAygObxgho",
+  authDomain: "volleyball-sportsday.firebaseapp.com",
+  projectId: "volleyball-sportsday",
+  storageBucket: "volleyball-sportsday.firebasestorage.app",
+  messagingSenderId: "607664964432",
+  appId: "1:607664964432:web:dc4a1cedbfabf185376255"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+async function createMatches() {
+
+const matches = [
+
+{
+id:"match1",
+category:"ชายประถม",
+round:"สาย A",
+teamA:"เหลือง",
+teamB:"ชมพู"
+},
+{
+id:"match2",
+category:"ชายประถม",
+round:"สาย B",
+teamA:"แดง",
+teamB:"น้ำเงิน"
+},
+{
+id:"match3",
+category:"หญิงประถม",
+round:"สาย A",
+teamA:"เหลือง",
+teamB:"ชมพู"
+},
+{
+id:"match4",
+category:"หญิงประถม",
+round:"สาย B",
+teamA:"แดง",
+teamB:"น้ำเงิน"
+},
+{
+id:"match5",
+category:"ชายมัธยม",
+round:"สาย A",
+teamA:"น้ำเงิน",
+teamB:"ชมพู"
+},
+{
+id:"match6",
+category:"ชายมัธยม",
+round:"สาย B",
+teamA:"แดง",
+teamB:"เหลือง"
+},
+{
+id:"match7",
+category:"หญิงมัธยม",
+round:"สาย A",
+teamA:"น้ำเงิน",
+teamB:"ชมพู"
+},
+{
+id:"match8",
+category:"หญิงมัธยม",
+round:"สาย B",
+teamA:"แดง",
+teamB:"เหลือง"
+},
+{
+id:"match9",
+category:"ชายประถม",
+round:"ชิงที่ 3",
+teamA:"ผู้แพ้คู่1",
+teamB:"ผู้แพ้คู่2"
+},
+{
+id:"match10",
+category:"หญิงประถม",
+round:"ชิงที่ 3",
+teamA:"ผู้แพ้คู่3",
+teamB:"ผู้แพ้คู่4"
+},
+{
+id:"match11",
+category:"ชายมัธยม",
+round:"ชิงที่ 3",
+teamA:"ผู้แพ้คู่5",
+teamB:"ผู้แพ้คู่6"
+},
+{
+id:"match12",
+category:"หญิงมัธยม",
+round:"ชิงที่ 3",
+teamA:"ผู้แพ้คู่7",
+teamB:"ผู้แพ้คู่8"
+},
+{
+id:"match13",
+category:"ชายประถม",
+round:"ชิงชนะเลิศ",
+teamA:"ผู้ชนะคู่1",
+teamB:"ผู้ชนะคู่2"
+},
+{
+id:"match14",
+category:"หญิงประถม",
+round:"ชิงชนะเลิศ",
+teamA:"ผู้ชนะคู่3",
+teamB:"ผู้ชนะคู่4"
+},
+{
+id:"match15",
+category:"ชายมัธยม",
+round:"ชิงชนะเลิศ",
+teamA:"ผู้ชนะคู่5",
+teamB:"ผู้ชนะคู่6"
+},
+{
+id:"match16",
+category:"หญิงมัธยม",
+round:"ชิงชนะเลิศ",
+teamA:"ผู้ชนะคู่7",
+teamB:"ผู้ชนะคู่8"
+}
+
+];
+
+for (const m of matches) {
+
+await setDoc(doc(db,"matches",m.id),{
+
+category:m.category,
+round:m.round,
+
+teamA:m.teamA,
+teamB:m.teamB,
+
+set1A:0,
+set1B:0,
+
+set2A:0,
+set2B:0,
+
+set3A:0,
+set3B:0,
+
+winner:"",
+status:"pending"
+
+});
+
+}
+
+alert("สร้าง match1-match16 สำเร็จ");
+
+}
+
+window.createMatches = createMatches;
+
+</script>
+
+</body>
+</html>
