@@ -470,7 +470,29 @@ return noA-noB;
 });
 
 for(const match of matches){
+if(match.id === "match1"){
+matchesContainer.innerHTML += `
+<div class="card">
+<h2>📅 19 สิงหาคม 2569</h2>
+</div>
+`;
+}
 
+if(match.id === "match7"){
+matchesContainer.innerHTML += `
+<div class="card">
+<h2>📅 20 สิงหาคม 2569</h2>
+</div>
+`;
+}
+
+if(match.id === "match11"){
+matchesContainer.innerHTML += `
+<div class="card">
+<h2>📅 21 สิงหาคม 2569</h2>
+</div>
+`;
+}
 const div =
 document.createElement("div");
 
