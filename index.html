@@ -702,9 +702,201 @@ status
 
 });
 
-if(status === "completed"){
-
 switch(matchId){
+
+case "match1":
+
+await updateDoc(
+doc(db,"matches","match9"),
+{
+teamA:
+status === "completed"
+? loser
+: "ผู้แพ้คู่1"
+}
+);
+
+await updateDoc(
+doc(db,"matches","match13"),
+{
+teamA:
+status === "completed"
+? winner
+: "ผู้ชนะคู่1"
+}
+);
+
+break;
+
+case "match2":
+
+await updateDoc(
+doc(db,"matches","match9"),
+{
+teamB:
+status === "completed"
+? loser
+: "ผู้แพ้คู่2"
+}
+);
+
+await updateDoc(
+doc(db,"matches","match13"),
+{
+teamB:
+status === "completed"
+? winner
+: "ผู้ชนะคู่2"
+}
+);
+
+break;
+
+case "match3":
+
+await updateDoc(
+doc(db,"matches","match10"),
+{
+teamA:
+status === "completed"
+? loser
+: "ผู้แพ้คู่3"
+}
+);
+
+await updateDoc(
+doc(db,"matches","match14"),
+{
+teamA:
+status === "completed"
+? winner
+: "ผู้ชนะคู่3"
+}
+);
+
+break;
+
+case "match4":
+
+await updateDoc(
+doc(db,"matches","match10"),
+{
+teamB:
+status === "completed"
+? loser
+: "ผู้แพ้คู่4"
+}
+);
+
+await updateDoc(
+doc(db,"matches","match14"),
+{
+teamB:
+status === "completed"
+? winner
+: "ผู้ชนะคู่4"
+}
+);
+
+break;
+
+case "match5":
+
+await updateDoc(
+doc(db,"matches","match11"),
+{
+teamA:
+status === "completed"
+? loser
+: "ผู้แพ้คู่5"
+}
+);
+
+await updateDoc(
+doc(db,"matches","match15"),
+{
+teamA:
+status === "completed"
+? winner
+: "ผู้ชนะคู่5"
+}
+);
+
+break;
+
+case "match6":
+
+await updateDoc(
+doc(db,"matches","match11"),
+{
+teamB:
+status === "completed"
+? loser
+: "ผู้แพ้คู่6"
+}
+);
+
+await updateDoc(
+doc(db,"matches","match15"),
+{
+teamB:
+status === "completed"
+? winner
+: "ผู้ชนะคู่6"
+}
+);
+
+break;
+
+case "match7":
+
+await updateDoc(
+doc(db,"matches","match12"),
+{
+teamA:
+status === "completed"
+? loser
+: "ผู้แพ้คู่7"
+}
+);
+
+await updateDoc(
+doc(db,"matches","match16"),
+{
+teamA:
+status === "completed"
+? winner
+: "ผู้ชนะคู่7"
+}
+);
+
+break;
+
+case "match8":
+
+await updateDoc(
+doc(db,"matches","match12"),
+{
+teamB:
+status === "completed"
+? loser
+: "ผู้แพ้คู่8"
+}
+);
+
+await updateDoc(
+doc(db,"matches","match16"),
+{
+teamB:
+status === "completed"
+? winner
+: "ผู้ชนะคู่8"
+}
+);
+
+break;
+
+}
 
 case "match1":
 
