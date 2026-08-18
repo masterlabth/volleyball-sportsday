@@ -6,100 +6,103 @@
 <title>วอลเลย์บอลกีฬาสี 2569</title>
 
 <style>
+
 *{
-    box-sizing:border-box;
+box-sizing:border-box;
 }
 
 body{
-    margin:0;
-    padding:20px;
-    background:#f5f7fb;
-    font-family:Sarabun,sans-serif;
+margin:0;
+padding:20px;
+background:#f5f7fb;
+font-family:Sarabun,sans-serif;
 }
 
 h1,h2,h3{
-    margin-top:0;
+margin-top:0;
 }
 
 .card{
-    background:white;
-    border-radius:12px;
-    padding:15px;
-    margin-bottom:15px;
-    box-shadow:0 2px 8px rgba(0,0,0,.1);
+background:white;
+border-radius:12px;
+padding:15px;
+margin-bottom:15px;
+box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
 
 input{
-    width:100%;
-    padding:10px;
-    margin:5px 0;
+width:100%;
+padding:10px;
+margin:5px 0;
 }
 
 button{
-    padding:10px 15px;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
+padding:10px 15px;
+border:none;
+border-radius:8px;
+cursor:pointer;
 }
 
 .primary{
-    background:#1976d2;
-    color:white;
+background:#1976d2;
+color:white;
 }
 
 .danger{
-    background:#d32f2f;
-    color:white;
+background:#d32f2f;
+color:white;
 }
 
 .match{
-    border-left:5px solid #1976d2;
-    margin-top:10px;
-    padding:10px;
+border-left:5px solid #1976d2;
+margin-top:10px;
+padding:10px;
 }
 
 .score-row{
-    display:flex;
-    gap:10px;
-    margin-top:5px;
+display:flex;
+gap:10px;
+margin-top:5px;
 }
 
 .score-row input{
-    width:80px;
+width:80px;
 }
 
 .hidden{
-    display:none;
+display:none;
 }
 
 .team-yellow{
-    color:#f9a825;
-    font-weight:bold;
+color:#f9a825;
+font-weight:bold;
 }
 
 .team-pink{
-    color:#d81b60;
-    font-weight:bold;
+color:#d81b60;
+font-weight:bold;
 }
 
 .team-red{
-    color:#e53935;
-    font-weight:bold;
+color:#e53935;
+font-weight:bold;
 }
 
 .team-blue{
-    color:#1e88e5;
-    font-weight:bold;
+color:#1e88e5;
+font-weight:bold;
 }
+
 </style>
 </head>
+
 <body>
 
 <h1>🏐 วอลเลย์บอลกีฬาสี 2569</h1>
 
 <div id="loginBox" class="card">
 
-<h2>เข้าสู่ระบบ</h2>
+<h2>เข้าสู่ระบบกรรมการ</h2>
 
 <input
 type="text"
@@ -121,20 +124,22 @@ id="loginBtn">
 
 </div>
 
-<div id="app" class="hidden">
+<div id="app">
 
 <div class="card">
 
-<h2 id="welcome"></h2>
+<h2 id="welcome">
+ผู้ชมการแข่งขัน
+</h2>
 
 <button
-class="danger"
+class="danger hidden"
 id="logoutBtn">
 ออกจากระบบ
 </button>
 
 <button
-class="primary"
+class="primary hidden"
 id="createMatchesBtn">
 สร้างข้อมูลการแข่งขัน
 </button>
@@ -175,22 +180,37 @@ const db = getFirestore(app);
 
 let currentUser = null;
 
-const loginBox = document.getElementById("loginBox");
-const appBox = document.getElementById("app");
-const loginBtn = document.getElementById("loginBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-const loginMsg = document.getElementById("loginMsg");
-const welcome = document.getElementById("welcome");
-const matchesContainer = document.getElementById("matchesContainer");
+const loginBtn =
+document.getElementById("loginBtn");
+
+const logoutBtn =
+document.getElementById("logoutBtn");
+
+const loginMsg =
+document.getElementById("loginMsg");
+
+const welcome =
+document.getElementById("welcome");
+
+const matchesContainer =
+document.getElementById("matchesContainer");
+
+const createMatchesBtn =
+document.getElementById("createMatchesBtn");
 
 loginBtn.addEventListener("click", login);
 
 logoutBtn.addEventListener("click", ()=>{
 
-currentUser=null;
+currentUser = null;
 
-loginBox.classList.remove("hidden");
-appBox.classList.add("hidden");
+welcome.innerText =
+"ผู้ชมการแข่งขัน";
+
+logoutBtn.classList.add("hidden");
+createMatchesBtn.classList.add("hidden");
+
+loadMatches();
 
 });
 
@@ -210,32 +230,40 @@ await getDoc(userRef);
 
 if(!userSnap.exists()){
 
-loginMsg.innerText="ไม่พบผู้ใช้";
+loginMsg.innerText =
+"ไม่พบผู้ใช้";
+
 return;
 
 }
 
-const userData=userSnap.data();
+const userData =
+userSnap.data();
 
-if(userData.password!==password){
+if(userData.password !== password){
 
-loginMsg.innerText="รหัสผ่านไม่ถูกต้อง";
+loginMsg.innerText =
+"รหัสผ่านไม่ถูกต้อง";
+
 return;
 
 }
 
-currentUser=userData;
+currentUser = userData;
 
-welcome.innerText=
+welcome.innerText =
 `ยินดีต้อนรับ ${userData.username}`;
 
-loginBox.classList.add("hidden");
-appBox.classList.remove("hidden");
+logoutBtn.classList.remove("hidden");
+createMatchesBtn.classList.remove("hidden");
+
+loginMsg.innerText =
+"เข้าสู่ระบบสำเร็จ";
 
 loadMatches();
 
 }
-   async function createMatches(){
+    async function createMatches(){
 
 const matches = [
 
@@ -363,16 +391,12 @@ category:m.category,
 round:m.round,
 teamA:m.teamA,
 teamB:m.teamB,
-
 set1A:0,
 set1B:0,
-
 set2A:0,
 set2B:0,
-
 set3A:0,
 set3B:0,
-
 winner:"",
 status:"pending"
 }
@@ -386,9 +410,7 @@ loadMatches();
 
 }
 
-document
-.getElementById("createMatchesBtn")
-.addEventListener(
+createMatchesBtn.addEventListener(
 "click",
 createMatches
 );
@@ -425,22 +447,20 @@ const matches=[];
 snapshot.forEach(docSnap=>{
 
 matches.push({
-
 id:docSnap.id,
 ...docSnap.data()
-
 });
 
 });
 
 matches.sort((a,b)=>{
 
-const noA=
+const noA =
 parseInt(
 a.id.replace("match","")
 );
 
-const noB=
+const noB =
 parseInt(
 b.id.replace("match","")
 );
@@ -456,13 +476,11 @@ document.createElement("div");
 
 div.className="card";
 
-div.innerHTML=`
+div.innerHTML = `
 
 <div class="match">
 
-<h3>
-${match.id}
-</h3>
+<h3>${match.id}</h3>
 
 <p>
 ${match.category}
@@ -489,55 +507,78 @@ ${match.teamB}
 <b>${match.winner || "-"}</b>
 </p>
 
-<div class="score-row">
+${
+currentUser
+?
+`
 
+<div class="score-row">
 <input
 type="number"
 id="${match.id}_set1A"
 value="${match.set1A}">
-
 <input
 type="number"
 id="${match.id}_set1B"
 value="${match.set1B}">
-
 </div>
 
 <div class="score-row">
-
 <input
 type="number"
 id="${match.id}_set2A"
 value="${match.set2A}">
-
 <input
 type="number"
 id="${match.id}_set2B"
 value="${match.set2B}">
-
 </div>
 
 <div class="score-row">
-
 <input
 type="number"
 id="${match.id}_set3A"
 value="${match.set3A}">
-
 <input
 type="number"
 id="${match.id}_set3B"
 value="${match.set3B}">
-
 </div>
 
 <button
 class="primary"
 onclick="saveMatch('${match.id}')">
-
 บันทึกคะแนน
-
 </button>
+
+`
+:
+`
+
+<p>
+เซต 1 :
+${match.set1A}
+-
+${match.set1B}
+</p>
+
+<p>
+เซต 2 :
+${match.set2A}
+-
+${match.set2B}
+</p>
+
+<p>
+เซต 3 :
+${match.set3A}
+-
+${match.set3B}
+</p>
+
+`
+
+}
 
 </div>
 
@@ -549,6 +590,13 @@ matchesContainer.appendChild(div);
 
 }
  window.saveMatch = async function(matchId){
+
+if(!currentUser){
+
+alert("กรุณาเข้าสู่ระบบกรรมการ");
+return;
+
+}
 
 const set1A =
 parseInt(
@@ -587,8 +635,10 @@ const matchSnap =
 await getDoc(matchRef);
 
 if(!matchSnap.exists()){
+
 alert("ไม่พบข้อมูลการแข่งขัน");
 return;
+
 }
 
 const matchData =
@@ -644,6 +694,8 @@ alert("บันทึกคะแนนเรียบร้อย");
 loadMatches();
 
 };
+
+loadMatches();
 
 </script>
 
